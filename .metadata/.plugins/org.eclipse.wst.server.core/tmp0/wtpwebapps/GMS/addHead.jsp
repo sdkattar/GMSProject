@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@page import="com.app.model.Head"%>
+  <%@page isELIgnored="false" %>
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <html>
 
@@ -44,19 +46,19 @@
                         </caption>
 
                         <c:if test="${head != null}">
-                            <input type="hidden" name="id" value="<c:out value='${head.userid}' />" />
+                            <input type="hidden" name="userid" value="<c:out value='${head.userid}' />" />
                         </c:if>
 
                         <fieldset class="form-group">
-                            <label>User Name</label> <input type="text" value="<c:out value='${head.name}' />" class="form-control" name="name" required="required">
+                            <label>Name</label> <input type="text" value="<c:out value='${head.name}' />" class="form-control" name="name" required="required">
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <label>User Email</label> <input type="text" value="<c:out value='${head.email}' />" class="form-control" name="email">
+                            <label>Email</label> <input type="text" value="<c:out value='${head.email}' />" class="form-control" name="email">
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <label>User Phone</label> <input type="text" value="<c:out value='${head.password}' />" class="form-control" name="password">
+                            <label>Phone</label> <input type="text" value="<c:out value='${head.password}' />" class="form-control" name="password">
                         </fieldset>
 
                         <button type="submit" class="btn btn-success">Save</button>

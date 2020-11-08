@@ -1,0 +1,157 @@
+package com.app.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.model.Head;
+import com.app.model.User;
+
+public class HeadDao {
+
+	private String jdbcUrl="jdbc:mysql://localhost:3306/gms_project?useSSL=false";
+	private String jdbcUsername="root";
+	private String jdbcPassword="manager";
+	
+	private static String insertHead="insert into user (name,email,phone,password,role) values(?,?,?,?,?)";
+	private static final String selectHead = "select name,email,phone,deptid from user where userid =?";
+	private static final String selectAllHead = "select userid,name,email,phone,deptid from user where role=?";
+	private static final String deleteHead = "delete from user where userid = ?";
+    private static final String updateHead = "update user set name = ?,email= ?, phone =? where userid = ?";
+
+	//connection
+	protected Connection getConnection() {
+		Connection connection=null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection=DriverManager.getConnection(jdbcUrl,jdbcUsername,jdbcPassword);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return connection;
+		
+	}
+	
+	//insert user
+	public void registerHead(Head head) throws SQLException {
+		try(Connection connection=getConnection();
+				PreparedStatement ps=connection.prepareStatement(insertHead)){
+			ps.setString(1,head.getName());
+			ps.setString(2,head.getEmail());
+			ps.setString(3,head.getPhone());
+			ps.setString(4,head.getPassword());
+			ps.setString(5,head.getRole());
+			ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//select Head
+    public Head selectHead(int userid) {
+        Head head = null;
+        // Step 1: Establishing a Connection
+        try (Connection connection = getConnection();
+            // Step 2:Create a statement using connection object
+            PreparedStatement ps = connection.prepareStatement(selectHead);) {
+            ps.setInt(1, userid);
+            System.out.println(ps);
+            // Step 3: Execute the query or update query
+            ResultSet rs = ps.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+         
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String phone = rs.getString("phone");
+                String deptid = rs.getString("deptid");
+           
+                head = new Head(name, email, phone,deptid);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return head;
+    }
+    
+    //select all Heads
+    public List <Head> selectAllHeads(String role) {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List <Head> heads = new ArrayList <Head> ();
+        // Step 1: Establishing a Connection
+        try (Connection connection = getConnection();
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(selectAllHead);) {
+        	preparedStatement.setString(1, role);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = rs.getInt("userid");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String phone = rs.getString("phone");
+                heads.add(new Head(id, name, email, phone));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return heads;
+    }
+
+
+
+//delete head
+public boolean deleteHead(int id) throws SQLException {
+    boolean rowDeleted;
+    try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(deleteHead);) {
+        statement.setInt(1, id);
+        rowDeleted = statement.executeUpdate() > 0;
+    }
+    return rowDeleted;
+}
+
+//update head
+public boolean updateHead(Head head) throws SQLException {
+    boolean rowUpdated;
+    try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(updateHead);) {
+        statement.setString(1, head.getName());
+        statement.setString(2, head.getEmail());
+        statement.setString(3, head.getPhone());
+        statement.setInt(4, head.getUserid());
+
+        rowUpdated = statement.executeUpdate() > 0;
+    }
+    return rowUpdated;
+}
+
+private void printSQLException(SQLException ex) {
+    for (Throwable e: ex) {
+        if (e instanceof SQLException) {
+            e.printStackTrace(System.err);
+            System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+            System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+            Throwable t = ex.getCause();
+            while (t != null) {
+                System.out.println("Cause: " + t);
+                t = t.getCause();
+            }
+        }
+    }
+}
+
+}

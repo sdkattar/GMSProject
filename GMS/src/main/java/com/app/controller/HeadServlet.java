@@ -58,8 +58,8 @@ public class HeadServlet extends HttpServlet {
     private void listHead(HttpServletRequest request, HttpServletResponse response)
     	    throws SQLException, IOException, ServletException {
     	        String role = "HEAD";
-				List < Head > listHead = dao.selectAllHeads(role);
-    	        request.getSession().setAttribute("listHead", listHead);
+				List <Head> listHead = dao.selectAllHeads(role);
+    	        request.setAttribute("listHead", listHead);
     	        RequestDispatcher dispatcher = request.getRequestDispatcher("headList.jsp");
     	        dispatcher.forward(request, response);
     	    }
@@ -72,10 +72,10 @@ public class HeadServlet extends HttpServlet {
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
     	    throws SQLException, ServletException, IOException {
-    	        int id = Integer.parseInt(request.getParameter("userid"));
-    	        Head existingHead = dao.selectHead(id);
+    	        int userid = Integer.parseInt(request.getParameter("userid"));
+    	        Head existingHead = dao.selectHead(userid);
     	        RequestDispatcher dispatcher = request.getRequestDispatcher("addHead.jsp");
-    	        request.setAttribute("user", existingHead);
+    	        request.setAttribute("head", existingHead);
     	        dispatcher.forward(request, response);
 
     	    }
@@ -93,20 +93,20 @@ public class HeadServlet extends HttpServlet {
     
     private void updateHead(HttpServletRequest request, HttpServletResponse response)
     throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("userid"));
+        int userid = Integer.parseInt(request.getParameter("userid"));
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
 
-        Head head = new Head(id, name, email, phone);
+        Head head = new Head(userid, name, email, phone);
         dao.updateHead(head);
         response.sendRedirect("list");
     }
     
     private void deleteHead(HttpServletRequest request, HttpServletResponse response)
     	    throws SQLException, IOException {
-    	        int id = Integer.parseInt(request.getParameter("userid"));
-    	        dao.deleteHead(id);
+    	        int userid = Integer.parseInt(request.getParameter("userid"));
+    	        dao.deleteHead(userid);
     	        response.sendRedirect("list");
 
     	}

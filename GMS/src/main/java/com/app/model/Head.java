@@ -54,12 +54,27 @@ public Head(String name, String email, String phone, String deptid) {
 
 
 
+
+
+
+
 public Head(int userid, String name, String email, String phone) {
 	super();
 	this.userid = userid;
 	this.name = name;
 	this.email = email;
 	this.phone = phone;
+}
+
+
+
+public Head(int userid, String name, String email, String phone, String deptid) {
+	super();
+	this.userid = userid;
+	this.name = name;
+	this.email = email;
+	this.phone = phone;
+	this.deptid = deptid;
 }
 
 

@@ -1,8 +1,10 @@
+<%@page import="com.app.model.Head"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@page isELIgnored="false" %>
     <%@ page import="java.util.List"  %>
-    <% List listHead=(List)session.getAttribute("listHead");%>
+    
         <html>
 
         <head>
@@ -50,8 +52,9 @@
                         <tbody>
                             <!--   for (Todo todo: todos) {  -->
                   
-                            
-                            <c:forEach var="head" items="${listHead}">
+                  		
+                  			
+                            <c:forEach var="head" items='${listHead}'>
 
                                 <tr>
                                     <td>
@@ -66,7 +69,7 @@
                                     <td>
                                         <c:out value="${head.phone}" />
                                     </td>
-                                    <td><a href="edit?id=<c:out value='${head.userid}' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete?id=<c:out value='${head.userid}' />">Delete</a></td>
+                                    <td><a href="edit?userid=<c:out value='${head.userid}' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete?userid=<c:out value='${head.userid}' />">Delete</a></td>
                                 </tr>
                             </c:forEach>
                             <!-- } -->
