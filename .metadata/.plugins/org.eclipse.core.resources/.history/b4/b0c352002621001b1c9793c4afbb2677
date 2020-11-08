@@ -1,0 +1,15 @@
+package com.app.dao;
+
+public class HeadDao {
+
+	private String jdbcUrl="jdbc:mysql://localhost:3306/gms_project?useSSL=false";
+	private String jdbcUsername="root";
+	private String jdbcPassword="manager";
+	
+	private static String insertHead="insert into user (name,email,phone,password,role) values(?,?,?,?,?)";
+	private static final String selectHead = "select userid,name,email,phone,deptid from user where userid =?";
+	private static final String selectAllHead = "select * from user where role=?";
+	private static final String deleteHead = "delete from user where userid = ?";
+    private static final String updateHead = "update user set name = ?,email= ?, phone =?,password=? where userid = ?";
+
+}
