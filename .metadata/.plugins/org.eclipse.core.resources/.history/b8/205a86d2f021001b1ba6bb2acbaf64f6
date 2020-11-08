@@ -70,21 +70,6 @@ public Head(int userid, String name, String email, String phone) {
 
 
 
-public Head(String name, String email, String phone) {
-	super();
-	this.name = name;
-	this.email = email;
-	this.phone = phone;
-}
-
-
-
-
-
-
-
-
-
 public Head(int userid, String name, String email, String phone, String deptid) {
 	super();
 	this.userid = userid;

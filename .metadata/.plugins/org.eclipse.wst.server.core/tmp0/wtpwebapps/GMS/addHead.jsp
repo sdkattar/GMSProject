@@ -37,10 +37,10 @@
                         <caption>
                             <h2>
                                 <c:if test="${head != null}">
-                                    Edit User
+                                    Edit Head
                                 </c:if>
                                 <c:if test="${head == null}">
-                                    Add New User
+                                    Add New Head
                                 </c:if>
                             </h2>
                         </caption>
@@ -58,7 +58,7 @@
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <label>Phone</label> <input type="text" value="<c:out value='${head.password}' />" class="form-control" name="password">
+                            <label>Phone</label> <input type="text" value="<c:out value='${head.phone}' />" class="form-control" name="phone">
                         </fieldset>
 
                         <button type="submit" class="btn btn-success">Save</button>

@@ -47,8 +47,7 @@ public class HeadDao {
 			ps.setString(1,head.getName());
 			ps.setString(2,head.getEmail());
 			ps.setString(3,head.getPhone());
-			String role="HEAD";
-			ps.setString(4, role);
+			ps.setString(4,head.getRole());
 			ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

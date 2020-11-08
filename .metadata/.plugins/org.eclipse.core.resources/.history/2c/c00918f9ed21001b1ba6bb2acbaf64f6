@@ -58,7 +58,7 @@
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <label>Phone</label> <input type="text" value="<c:out value='${head.phone}' />" class="form-control" name="phone">
+                            <label>Phone</label> <input type="text" value="<c:out value='${head.phone}' />" class="form-control" name="password">
                         </fieldset>
 
                         <button type="submit" class="btn btn-success">Save</button>

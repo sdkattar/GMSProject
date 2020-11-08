@@ -17,7 +17,7 @@ public class HeadDao {
 	private String jdbcUsername="root";
 	private String jdbcPassword="manager";
 	
-	private static String insertHead="insert into user (name,email,phone,role) values(?,?,?,?)";
+	private static String insertHead="insert into user (name,email,phone) values(?,?,?)";
 	private static final String selectHead = "select name,email,phone,deptid from user where userid =?";
 	private static final String selectAllHead = "select userid,name,email,phone from user where role=?";
 	private static final String deleteHead = "delete from user where userid = ?";
@@ -47,8 +47,7 @@ public class HeadDao {
 			ps.setString(1,head.getName());
 			ps.setString(2,head.getEmail());
 			ps.setString(3,head.getPhone());
-			String role="HEAD";
-			ps.setString(4, role);
+	
 			ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

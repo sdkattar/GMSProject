@@ -84,9 +84,9 @@ public class HeadServlet extends HttpServlet {
     	        String name = request.getParameter("name");
     	        String email = request.getParameter("email");
     	        String phone = request.getParameter("phone");
-//    	        String password = request.getParameter("password");
-   	        String role = request.getParameter("role");
-    	        Head newHead = new Head(name, email, phone,role);
+    	        String password = request.getParameter("password");
+    	        String role = request.getParameter("role");
+    	        Head newHead = new Head(name, email, phone,password,role);
     	        dao.registerHead(newHead);
     	        response.sendRedirect("list");
     	    }

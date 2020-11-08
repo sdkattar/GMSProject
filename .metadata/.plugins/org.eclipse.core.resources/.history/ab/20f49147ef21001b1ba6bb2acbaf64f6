@@ -79,12 +79,6 @@ public Head(String name, String email, String phone) {
 
 
 
-
-
-
-
-
-
 public Head(int userid, String name, String email, String phone, String deptid) {
 	super();
 	this.userid = userid;
